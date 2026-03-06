@@ -1,6 +1,6 @@
 # monorhyme-search
 
-Semantic search for local files. Indexes code and text using vector embeddings, then lets you search by meaning rather than exact keywords. Works fully offline via [Ollama](https://ollama.com).
+Go based semantic search for local files. Indexes code and text using vector embeddings, then lets you search by meaning rather than exact keywords. Works fully offline via [Ollama](https://ollama.com).
 
 ## Requirements
 
