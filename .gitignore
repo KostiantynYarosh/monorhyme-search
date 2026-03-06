@@ -1,0 +1,8 @@
+monorhyme-search
+monorhyme-search.exe
+*.db
+*.db-wal
+*.db-shm
+dist/
+config.yaml
+.claude
