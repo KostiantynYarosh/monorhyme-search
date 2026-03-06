@@ -46,7 +46,11 @@ func initConfig() {
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			if werr := config.WriteDefaultConfig(); werr != nil {
+				fmt.Fprintf(os.Stderr, "Warning: could not write default config: %v\n", werr)
+			}
+		} else {
 			fmt.Fprintf(os.Stderr, "Error reading config: %v\n", err)
 		}
 	}

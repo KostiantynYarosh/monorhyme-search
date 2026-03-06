@@ -17,7 +17,7 @@ ollama pull bge-m3
 go build -o monorhyme-search.exe .
 ```
 
-Place the binary anywhere. `config.yaml` will be created next to the binary on first `monorhyme-search config`.
+Place the binary anywhere. `config.yaml` is automatically created next to the binary on first run with all default values. Run `monorhyme-search config` to customize.
 
 ## Quick Start
 
@@ -147,8 +147,12 @@ monorhyme-search config
 ===============
 
 Ollama base URL [http://localhost:11434]:
-Ollama model [bge-m3]:
-Default search results to show [4]:
+Ollama model (embedding model name) [bge-m3]:
+SQLite database path [C:\Users\user\AppData\Local\monorhyme-search\index.db]:
+Default number of search results [4]:
+Chunks per embedding HTTP call (index_batch_size) [32]:
+Sliding window size in tokens (chunk_max_tokens) [300]:
+Overlap between chunks in tokens (chunk_overlap_tokens) [50]:
 
 Config saved to: F:\projects\monorhyme-search\config.yaml
 ```
@@ -162,14 +166,18 @@ Config saved to: F:\projects\monorhyme-search\config.yaml
 ```yaml
 ollama_base_url: http://localhost:11434
 ollama_model: bge-m3
+db_path: C:\Users\user\AppData\Local\monorhyme-search\index.db
 search_top_n: 4
+index_batch_size: 32
+chunk_max_tokens: 300
+chunk_overlap_tokens: 50
 ```
 
 **All options:**
 | Key | Default | Description |
 |-----|---------|-------------|
 | `ollama_base_url` | `http://localhost:11434` | Ollama server URL |
-| `ollama_model` | `nomic-embed-text` | Embedding model name |
+| `ollama_model` | `bge-m3` | Embedding model name |
 | `db_path` | `%LOCALAPPDATA%\monorhyme-search\index.db` | SQLite database path |
 | `search_top_n` | `4` | Default number of search results |
 | `index_batch_size` | `32` | Chunks per embedding HTTP call |

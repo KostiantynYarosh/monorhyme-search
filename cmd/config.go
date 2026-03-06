@@ -30,12 +30,20 @@ func runConfig(cmd *cobra.Command, args []string) error {
 	fmt.Println()
 
 	url := prompt(reader, "Ollama base URL", viper.GetString("ollama_base_url"))
-	model := prompt(reader, "Ollama model", viper.GetString("ollama_model"))
-	topN := prompt(reader, "Default search results to show", fmt.Sprintf("%d", viper.GetInt("search_top_n")))
+	model := prompt(reader, "Ollama model (embedding model name)", viper.GetString("ollama_model"))
+	dbPath := prompt(reader, "SQLite database path", viper.GetString("db_path"))
+	topN := prompt(reader, "Default number of search results", fmt.Sprintf("%d", viper.GetInt("search_top_n")))
+	batchSize := prompt(reader, "Chunks per embedding HTTP call (index_batch_size)", fmt.Sprintf("%d", viper.GetInt("index_batch_size")))
+	chunkMax := prompt(reader, "Sliding window size in tokens (chunk_max_tokens)", fmt.Sprintf("%d", viper.GetInt("chunk_max_tokens")))
+	chunkOverlap := prompt(reader, "Overlap between chunks in tokens (chunk_overlap_tokens)", fmt.Sprintf("%d", viper.GetInt("chunk_overlap_tokens")))
 
 	viper.Set("ollama_base_url", url)
 	viper.Set("ollama_model", model)
+	viper.Set("db_path", dbPath)
 	viper.Set("search_top_n", topN)
+	viper.Set("index_batch_size", batchSize)
+	viper.Set("chunk_max_tokens", chunkMax)
+	viper.Set("chunk_overlap_tokens", chunkOverlap)
 
 	configDir, err := config.ConfigDir()
 	if err != nil {

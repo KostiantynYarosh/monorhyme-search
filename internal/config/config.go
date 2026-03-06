@@ -2,6 +2,8 @@ package config
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 
 	"github.com/spf13/viper"
 )
@@ -20,12 +22,23 @@ func SetDefaults() {
 	dbPath, _ := DefaultDBPath()
 
 	viper.SetDefault("ollama_base_url", "http://localhost:11434")
-	viper.SetDefault("ollama_model", "nomic-embed-text")
+	viper.SetDefault("ollama_model", "bge-m3")
 	viper.SetDefault("db_path", dbPath)
 	viper.SetDefault("search_top_n", 4)
 	viper.SetDefault("index_batch_size", 32)
 	viper.SetDefault("chunk_max_tokens", 300)
 	viper.SetDefault("chunk_overlap_tokens", 50)
+}
+
+func WriteDefaultConfig() error {
+	path, err := ConfigFile()
+	if err != nil {
+		return fmt.Errorf("resolve config path: %w", err)
+	}
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return fmt.Errorf("create config dir: %w", err)
+	}
+	return viper.WriteConfigAs(path)
 }
 
 func Load() (*Config, error) {

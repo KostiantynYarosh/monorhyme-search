@@ -1,5 +1,11 @@
 monorhyme-search
 monorhyme-search.exe
+monorhyme-search-linux-amd64
+monorhyme-search-linux-arm64
+monorhyme-search-darwin-amd64
+monorhyme-search-darwin-arm64
+monorhyme-search-windows-amd64.exe
+monorhyme-search-windows-arm64.exe
 *.db
 *.db-wal
 *.db-shm
